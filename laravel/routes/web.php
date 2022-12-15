@@ -17,3 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/bunbougu', 'App\Http\Controllers\BunbouguController@index');
+
+Route::get('bunbougus/create', 'App\Http\Controllers\BunbouguController@create')->name('bunbougus.create');
+Route::post('bunbougus/store', 'App\Http\Controllers\BunbouguController@store')->name('bunbougus.store');
