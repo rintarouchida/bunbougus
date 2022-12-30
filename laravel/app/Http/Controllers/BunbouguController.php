@@ -40,6 +40,7 @@ class BunbouguController extends Controller
      */
     public function create()
     {
+
         $bunruis = Bunrui::all();
         return view('create')
             ->with('bunruis', $bunruis);
