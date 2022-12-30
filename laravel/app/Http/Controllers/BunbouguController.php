@@ -86,3 +86,4 @@ class BunbouguController extends Controller
         //
     }
 }
+
