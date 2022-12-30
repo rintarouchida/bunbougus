@@ -84,24 +84,39 @@ class BunbouguController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Bunbougu $bunbougu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Bunbougu $bunbougu)
     {
-        //
+        $bunruis = Bunrui::all();
+        return view('edit', compact('bunbougu'))
+            ->with('bunruis', $bunruis);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Bunbougu $bunbougu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Bunbougu $bunbougu)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:20',
+            'kakaku' => 'required|integer',
+            'bunrui' => 'required|integer',
+            'shosai' => 'required|max:140',
+        ]);
+
+        $bunbougu->name = $request->input(["name"]);
+        $bunbougu->kakaku = $request->input(["kakaku"]);
+        $bunbougu->bunrui = $request->input(["bunrui"]);
+        $bunbougu->shosai = $request->input(["shosai"]);
+        $bunbougu->save();
+
+        return redirect()->route('bunbougu.index');
     }
 
     /**
