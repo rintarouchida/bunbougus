@@ -30,6 +30,7 @@ class BunbouguController extends Controller
         ->paginate(5);
 
         return view('index', compact('bunbougus'))
+            ->with('page_id', request()->page)
             ->with('i', (request()->input('page', 1) - 1)*5);
     }
 
@@ -81,6 +82,7 @@ class BunbouguController extends Controller
     {
         $bunruis = Bunrui::all();
         return view('show', compact('bunbougu'))
+        ->with('page_id', request()->page_id)
             ->with('bunruis', $bunruis);
     }
 

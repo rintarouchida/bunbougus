@@ -22,7 +22,7 @@
         @foreach ($bunbougus as $bunbougu)
         <tr>
             <td style="text-align:right">{{ $bunbougu->id }}</td>
-            <td><a class="" href="{{ route('bunbougu.show', $bunbougu->id) }}">{{ $bunbougu->name }}</a></td>
+            <td><a class="" href="{{ route('bunbougu.show', $bunbougu->id) }}?page_id={{ $page_id }}">{{ $bunbougu->name }}</a></td>
             <td style="text-align:right">{{ $bunbougu->kakaku }}円</td>
             <td style="text-align:right">{{ $bunbougu->bunrui }}</td>
             <td style="text-align:center">
