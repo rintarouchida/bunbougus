@@ -12,10 +12,12 @@ class BunbouguController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Bunbougu $bunbougu)
+    public function index()
     {
-        //
-        dd($bunbougu->find(1));
+        $bunbougus = Bunbougu::latest()->paginate(5);
+
+        return view('index', compact('bunbougus'))
+            ->with('i', (request()->input('page', 1) - 1)*5);
     }
 
     /**
@@ -25,7 +27,7 @@ class BunbouguController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
