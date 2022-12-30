@@ -127,12 +127,13 @@ class BunbouguController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Bunbougu $bunbougu
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Bunbougu $bunbougu)
     {
-        //
+        $bunbougu->delete();
+        return redirect()->route('bunbougu.index');
     }
 }
 
