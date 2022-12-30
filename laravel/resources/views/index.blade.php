@@ -28,6 +28,6 @@
         </tr>
         @endforeach
     </table>
-
     {!! $bunbougus->links() !!}
+
 @endsection

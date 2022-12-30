@@ -20,16 +20,38 @@
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                 <input type="text" name="name" class="form-control" placeholder="名前">
+                @error('name')
+                <span style="color:red">名前を20文字以内で入力してください</span>
+                @enderror
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                 <input type="text" name="kakaku" class="form-control" placeholder="価格">
+                @error('kakaku')
+                <span style="color:red">価格を数値で入力してください</span>
+                @enderror
+            </div>
+        </div>
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                <select name="bunrui" class="form-select">
+                    <option>分類を選択してください</option>
+                    @foreach($bunruis as $bunrui)
+                        <option value="{{$bunrui->id}}">{{$bunrui->str}}</option>
+                    @endforeach
+                </select>
+                @error('bunrui')
+                <span style="color:red">分類を選択してください</span>
+                @enderror
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
             <textarea class="form-control" style="height:100px" name="shosai" placeholder="詳細"></textarea>
+            @error('shosai')
+                <span style="color:red">詳細を140文字以内で入力してください</span>
+            @enderror
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">

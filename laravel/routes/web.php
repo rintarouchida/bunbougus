@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/bunbougu', 'App\Http\Controllers\BunbouguController@index');
+Route::get('/bunbougu', 'App\Http\Controllers\BunbouguController@index')
+->name('bunbougu.index');
 
 Route::get('bunbougu/create', 'App\Http\Controllers\BunbouguController@create')->name('bunbougu.create');
 Route::post('bunbougu/store', 'App\Http\Controllers\BunbouguController@store')->name('bunbougu.store');

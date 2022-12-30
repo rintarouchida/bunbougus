@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bunbougu;
+use App\Models\Bunrui;
 
 class BunbouguController extends Controller
 {
@@ -14,7 +15,19 @@ class BunbouguController extends Controller
      */
     public function index()
     {
-        $bunbougus = Bunbougu::latest()->paginate(5);
+        $bunbougus = Bunbougu::select([
+            'b.id',
+            'b.name',
+            'b.kakaku',
+            'b.shosai',
+            'r.str as bunrui',
+        ])
+        ->from('bunbougus as b')
+        ->join('bunruis as r', function($query) {
+            $query->on('b.bunrui', '=', 'r.id');
+        })
+        ->orderBy('b.id', 'DESC')
+        ->paginate(5);
 
         return view('index', compact('bunbougus'))
             ->with('i', (request()->input('page', 1) - 1)*5);
@@ -27,7 +40,9 @@ class BunbouguController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $bunruis = Bunrui::all();
+        return view('create')
+            ->with('bunruis', $bunruis);
     }
 
     /**
@@ -38,7 +53,21 @@ class BunbouguController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:20',
+            'kakaku' => 'required|integer',
+            'bunrui' => 'required|integer',
+            'shosai' => 'required|max:140',
+        ]);
+
+        $bunbougu = new Bunbougu;
+        $bunbougu->name = $request->input(["name"]);
+        $bunbougu->kakaku = $request->input(["kakaku"]);
+        $bunbougu->bunrui = $request->input(["bunrui"]);
+        $bunbougu->shosai = $request->input(["shosai"]);
+        $bunbougu->save();
+
+        return redirect()->route('bunbougu.index');
     }
 
     /**
