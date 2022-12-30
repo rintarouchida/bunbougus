@@ -74,12 +74,14 @@ class BunbouguController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Bunbougu $bunbougu
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Bunbougu $bunbougu)
     {
-        //
+        $bunruis = Bunrui::all();
+        return view('show', compact('bunbougu'))
+            ->with('bunruis', $bunruis);
     }
 
     /**

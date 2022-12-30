@@ -23,3 +23,5 @@ Route::get('bunbougu/create', 'App\Http\Controllers\BunbouguController@create')-
 Route::post('bunbougu/store', 'App\Http\Controllers\BunbouguController@store')->name('bunbougu.store');
 Route::get('/bunbougus/edit/{bunbougu}', 'App\Http\Controllers\BunbouguController@edit')->name('bunbougu.edit');
 Route::put('/bunbougus/edit/{bunbougu}','App\Http\Controllers\BunbouguController@update')->name('bunbougu.update');
+
+Route::get('/bunbougus/show/{bunbougu}', 'App\Http\Controllers\BunbouguController@show')->name('bunbougu.show');
