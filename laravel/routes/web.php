@@ -27,3 +27,7 @@ Route::put('/bunbougus/edit/{bunbougu}','App\Http\Controllers\BunbouguController
 Route::get('/bunbougus/show/{bunbougu}', 'App\Http\Controllers\BunbouguController@show')->name('bunbougu.show');
 
 Route::delete('/bunbougus/{bunbougu}', 'App\Http\Controllers\BunbouguController@destroy')->name('bunbougu.destroy');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
