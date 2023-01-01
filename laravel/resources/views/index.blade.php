@@ -13,6 +13,13 @@
             </div>
         </div>
     </div>
+    @auth
+    <div class="row">
+        <div class="col-lg-12">
+            ログイン者: {{ $user_name }}
+        </div>
+    </div>
+    @endauth
 
     <table class="table table-bordered">
         <tr>
@@ -20,6 +27,9 @@
             <th>name</th>
             <th>kakaku</th>
             <th>bunrui</th>
+            <th>editor</th>
+            <th></th>
+            <th></th>
         </tr>
         @foreach ($bunbougus as $bunbougu)
         <tr>
@@ -27,6 +37,7 @@
             <td><a class="" href="{{ route('bunbougu.show', $bunbougu->id) }}?page_id={{ $page_id }}">{{ $bunbougu->name }}</a></td>
             <td style="text-align:right">{{ $bunbougu->kakaku }}円</td>
             <td style="text-align:right">{{ $bunbougu->bunrui }}</td>
+            <td>{{ $bunbougu->user_name }}</td>
             @auth
             <td style="text-align:center">
                 <a class="btn btn-primary" href="{{route('bunbougu.edit', $bunbougu->id)}}">変更</a>

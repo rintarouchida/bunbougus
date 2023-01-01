@@ -20,18 +20,30 @@ class BunbouguController extends Controller
             'b.name',
             'b.kakaku',
             'b.shosai',
+            'b.user_id',
+            'u.name as user_name',
             'r.str as bunrui',
         ])
         ->from('bunbougus as b')
         ->join('bunruis as r', function($query) {
             $query->on('b.bunrui', '=', 'r.id');
         })
+        ->join('users as u', function($query) {
+            $query->on('b.user_id', '=', 'u.id');
+        })
         ->orderBy('b.id', 'DESC')
         ->paginate(5);
+        if(isset(\Auth::user()->name)){
+            return view('index', compact('bunbougus'))
+                ->with('user_name', \Auth::user()->name)
+                ->with('page_id', request()->page)
+                ->with('i', (request()->input('page', 1) - 1)*5);
+        } else{
+            return view('index', compact('bunbougus'))
+                ->with('page_id', request()->page)
+                ->with('i', (request()->input('page', 1) - 1)*5);
+        }
 
-        return view('index', compact('bunbougus'))
-            ->with('page_id', request()->page)
-            ->with('i', (request()->input('page', 1) - 1)*5);
     }
 
     /**
@@ -67,6 +79,7 @@ class BunbouguController extends Controller
         $bunbougu->kakaku = $request->input(["kakaku"]);
         $bunbougu->bunrui = $request->input(["bunrui"]);
         $bunbougu->shosai = $request->input(["shosai"]);
+        $bunbougu->user_id = \Auth::user()->id;
         $bunbougu->save();
 
         return redirect()->route('bunbougu.index');
@@ -119,6 +132,7 @@ class BunbouguController extends Controller
         $bunbougu->kakaku = $request->input(["kakaku"]);
         $bunbougu->bunrui = $request->input(["bunrui"]);
         $bunbougu->shosai = $request->input(["shosai"]);
+        $bunbougu->user_id = \Auth::user()->id;
         $bunbougu->save();
 
         return redirect()->route('bunbougu.index');
